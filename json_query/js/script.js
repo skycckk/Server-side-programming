@@ -1,6 +1,12 @@
 
 function loadJSON (url) {
-	var xmlhttp = new XMLHttpRequest();
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
 	var jsonObj = undefined;
     xmlhttp.onreadystatechange = function() {
         console.log("State: " + this.readyState + ", Status: " + this.status);
