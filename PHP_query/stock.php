@@ -34,12 +34,52 @@
     <i>Stock Search</i><hr>
     <div class="form">
         <form action="stock.php" method="get" onsubmit="return check();">
-            Company Name of Symbol: <input type="text" id="stock_name" placeholder="e.g. AAPL" value=""><br>
+            Company Name of Symbol: <input type="text" name="stock_name" id="stock_name" placeholder="e.g. APPL" value=""><br>
             <input type="submit" name="btn_search" value="search"">
             <input type="button" name="btn_clear" value="clear">
         </form>
         <a href="https://ihsmarkit.com/products/digital.html"><p>Powered by Markit on Demand</p></a>
     </div>
 </div>
+<div>
+    <br>
+</div>
+<?php
+if (isset($_GET["btn_search"])) {
+    $get_stock_name = $_GET["stock_name"];
+    $response = file_get_contents("http://dev.markitondemand.com/MODApis/Api/v2/Lookup/json?input=" . $get_stock_name);
+    $response = json_decode($response);
+
+    $table = "<table border='1' align='center' style='border-collapse: collapse; border-color: gray; text-align: center;'>" .
+             "<tr>".
+             "<th>Name</th>" .
+             "<th>Symbol</th>" .
+             "<th>Exchange</th>" .
+             "<th>Details</th>" .
+             "</tr>";
+
+    $stock_name = "";
+    $stock_symbol = "";
+    $stock_exchange = "";
+    $stock_detail = "<a href='#'>More info</a>";
+
+    foreach ($response as $stock) {
+        foreach ($stock as $key=>$value) {
+            if ($key == "Name") $stock_name = $value;
+            else if ($key == "Symbol") $stock_symbol = $value;
+            else if ($key == "Exchange") $stock_exchange = $value;
+        }
+
+        $table .= "<tr>".
+                  "<td>$stock_name</td>" .
+                  "<td>$stock_symbol</td>" .
+                  "<td>$stock_exchange</td>" .
+                  "<td>$stock_detail</td>" .
+                  "</tr>";
+    }
+    $table .= "</table>";
+    echo $table;
+}
+?>
 </body>
 </html>
