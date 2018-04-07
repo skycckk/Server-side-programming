@@ -4,8 +4,9 @@
 * Date: 4/6/18
 */
 ?>
-<html>
-<body>
+<!doctype html public "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html lang="en">
+<meta charset="utf-8">
 <head>
     <style type="text/css">
         div.box {
@@ -30,6 +31,7 @@
         }
     </script>
 </head>
+<body>
 <div class="box">
     <i>Stock Search</i><hr>
     <div class="form">
