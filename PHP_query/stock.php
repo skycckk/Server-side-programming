@@ -63,22 +63,35 @@ if (isset($_GET["btn_search"])) {
     $stock_exchange = "";
     $stock_detail = "<a href='#'>More info</a>";
 
-    foreach ($response as $stock) {
-        foreach ($stock as $key=>$value) {
-            if ($key == "Name") $stock_name = $value;
-            else if ($key == "Symbol") $stock_symbol = $value;
-            else if ($key == "Exchange") $stock_exchange = $value;
-        }
+    if (count($response) > 0) {
+        foreach ($response as $stock) {
+            foreach ($stock as $key=>$value) {
+                if ($key == "Name") $stock_name = $value;
+                else if ($key == "Symbol") $stock_symbol = $value;
+                else if ($key == "Exchange") $stock_exchange = $value;
+            }
 
-        $table .= "<tr>".
-                  "<td>$stock_name</td>" .
-                  "<td>$stock_symbol</td>" .
-                  "<td>$stock_exchange</td>" .
-                  "<td>$stock_detail</td>" .
-                  "</tr>";
+            $table .= "<tr>".
+                "<td>$stock_name</td>" .
+                "<td>$stock_symbol</td>" .
+                "<td>$stock_exchange</td>" .
+                "<td>$stock_detail</td>" .
+                "</tr>";
+        }
+        $table .= "</table>";
+        echo $table;
+    } else {
+        $no_record_html = "";
+        $no_record_html .= "<p style='text-align: center; 
+                                      border-style: solid; 
+                                      width: 50%; 
+                                      margin-left: 25%;
+                                      border-color: gray;
+                                      border-width: 1px;'>No Records has been found</p>";
+        echo $no_record_html;
     }
-    $table .= "</table>";
-    echo $table;
+
+
 }
 ?>
 </body>
