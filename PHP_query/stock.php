@@ -49,21 +49,20 @@ if (isset($_GET["btn_search"])) {
     $get_stock_name = $_GET["stock_name"];
     $response = file_get_contents("http://dev.markitondemand.com/MODApis/Api/v2/Lookup/json?input=" . $get_stock_name);
     $response = json_decode($response);
-
-    $table = "<table border='1' align='center' style='border-collapse: collapse; border-color: gray; text-align: center;'>" .
-             "<tr>".
-             "<th>Name</th>" .
-             "<th>Symbol</th>" .
-             "<th>Exchange</th>" .
-             "<th>Details</th>" .
-             "</tr>";
-
-    $stock_name = "";
-    $stock_symbol = "";
-    $stock_exchange = "";
-    $stock_detail = "<a href='#'>More info</a>";
-
+    
     if (count($response) > 0) {
+        $table = "<table border='1' align='center' style='border-collapse: collapse; border-color: gray; text-align: center;'>" .
+            "<tr>".
+            "<th>Name</th>" .
+            "<th>Symbol</th>" .
+            "<th>Exchange</th>" .
+            "<th>Details</th>" .
+            "</tr>";
+
+        $stock_name = "";
+        $stock_symbol = "";
+        $stock_exchange = "";
+        $stock_detail = "<a href='#'>More info</a>";
         foreach ($response as $stock) {
             foreach ($stock as $key=>$value) {
                 if ($key == "Name") $stock_name = $value;
