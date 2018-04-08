@@ -36,7 +36,8 @@
     <i>Stock Search</i><hr>
     <div class="form">
         <form action="stock.php" method="get" onsubmit="return check();">
-            Company Name of Symbol: <input type="text" name="stock_name" id="stock_name" placeholder="e.g. APPL" value=""><br>
+            Company Name of Symbol: <input type="text" name="stock_name" id="stock_name" placeholder="e.g. APPL"
+                                           value="<?php echo isset($_GET['stock_name']) ? $_GET['stock_name'] : ''?>"><br>
             <input type="submit" name="btn_search" value="search"">
             <input type="button" name="btn_clear" value="clear">
         </form>
@@ -55,8 +56,8 @@ function format_date_from_string($arg) {
     return $new_date;
 }
 
-if (isset($_GET["btn_info"])) {
-    $get_stock_info = $_GET["btn_info"];
+if (isset($_GET["more_info"]) && isset($_GET["stock_name"])) {
+    $get_stock_info = $_GET["stock_name"];
     $response = file_get_contents("http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=" . $get_stock_info);
     $response = json_decode($response, true);
 
@@ -147,7 +148,7 @@ if (isset($_GET["btn_search"])) {
                 else if ($key == "Exchange") $stock_exchange = $value;
             }
 
-            $stock_detail = "<a href='stock.php?btn_info=" . $stock_symbol . "'>More Info</a>";
+            $stock_detail = "<a href='stock.php?stock_name=" . $stock_symbol . "&more_info=true". "'>More Info</a>";
 
             $table .= "<tr>".
                 "<td>$stock_name</td>" .
@@ -168,8 +169,6 @@ if (isset($_GET["btn_search"])) {
                                       border-width: 1px;'>No Records has been found</p>";
         echo $no_record_html;
     }
-
-
 }
 ?>
 </body>
