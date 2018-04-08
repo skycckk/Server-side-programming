@@ -4,7 +4,7 @@
 * Date: 4/6/18
 */
 ?>
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <meta charset="utf-8">
 <head>
