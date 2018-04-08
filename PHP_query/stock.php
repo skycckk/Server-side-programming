@@ -29,6 +29,11 @@
             }
             return true;
         }
+
+        function resetPage() {
+            window.location.href = "stock.php";
+        }
+
     </script>
 </head>
 <body>
@@ -39,7 +44,7 @@
             Company Name of Symbol: <input type="text" name="stock_name" id="stock_name" placeholder="e.g. APPL"
                                            value="<?php echo isset($_GET['stock_name']) ? $_GET['stock_name'] : ''?>"><br>
             <input type="submit" name="btn_search" value="search"">
-            <input type="button" name="btn_clear" value="clear">
+            <input type="button" name="btn_clear" value="clear" onclick="resetPage();">
         </form>
         <a href="https://ihsmarkit.com/products/digital.html"><p>Powered by Markit on Demand</p></a>
     </div>
