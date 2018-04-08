@@ -10,14 +10,62 @@
 <head>
     <style type="text/css">
         div.box {
-            background-color: aliceblue;
+            background-color: whitesmoke;
             text-align: center;
             border-style: solid;
-            border-color: gray;
+            border-color: #D5D5D5;
             border-width: 1px;
-            width: 50%;
-            margin-left: 25%;
+            width: 40%;
+            margin-left: 30%;
         }
+
+        div.box hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #D5D5D5;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 0;
+        }
+
+        div.box div.title {
+            font: 30px bold;
+            font-style: italic;
+        }
+
+        table.stock_table {
+            border-collapse: collapse;
+            border-color: gray;
+            text-align: left;
+            font-family: sans-serif;
+            font-weight: 100;
+            justify-content: center;
+        }
+
+        table.stock_table td {
+            padding: 0.2em;
+        }
+
+        table.stock_info_table {
+            border-collapse: collapse;
+            border-color: gray;
+            font-family: sans-serif;
+            font-weight: 100;
+            justify-content: center;
+            width: 40%;
+        }
+
+        table.stock_info_table .schema {
+            font-weight: bold;
+            padding: 0.2em;
+        }
+
+        table.stock_info_table .value {
+            text-align: center;
+            padding: 0.2em;
+        }
+
     </style>
 
     <script>
@@ -38,12 +86,12 @@
 </head>
 <body>
 <div class="box">
-    <i>Stock Search</i><hr>
+    <div class="title">Stock Search</div><hr>
     <div class="form">
         <form action="stock.php" method="get" onsubmit="return check();">
             Company Name of Symbol: <input type="text" name="stock_name" id="stock_name" placeholder="e.g. APPL"
                                            value="<?php echo isset($_GET['stock_name']) ? $_GET['stock_name'] : ''?>"><br>
-            <input type="submit" name="btn_search" value="search"">
+            <input type="submit" name="btn_search" value="search">
             <input type="button" name="btn_clear" value="clear" onclick="resetPage();">
         </form>
         <a href="https://ihsmarkit.com/products/digital.html"><p>Powered by Markit on Demand</p></a>
@@ -101,20 +149,20 @@ if (isset($_GET["more_info"]) && isset($_GET["stock_name"])) {
     else if ($display_change_percent_ydt < 0) $display_change_percent_ydt .= $red_arrow_img_html;
 
     if (isset($status) && $status == "SUCCESS") {
-        $table = "<table border='1' align='center' style='border-collapse: collapse; border-color: gray; text-align: center;'>" .
-            "<tr><td>Name</td><td>". $name . "</td></tr>" .
-            "<tr><td>Symbol</td><td>". $symbol . "</td></tr>" .
-            "<tr><td>Last Price</td><td>". $last_price . "</td></tr>" .
-            "<tr><td>Change</td><td>". $display_change . "</td></tr>" .
-            "<tr><td>Change Percent</td><td>". $display_change_percent . "</td></tr>" .
-            "<tr><td>Timestamp</td><td>". format_date_from_string($timestamp) . "</td></tr>" .
-            "<tr><td>Market Cap</td><td>". round($market_cap / 10e9, 2) . " B</td></tr>" .
-            "<tr><td>Volume</td><td>". number_format($volume) . "</td></tr>" .
-            "<tr><td>Change YTD</td><td>". $display_change_ytd . "</td></tr>" .
-            "<tr><td>Change Percent YTD</td><td>". $display_change_percent_ydt . "</td></tr>" .
-            "<tr><td>High</td><td>". $high . "</td></tr>" .
-            "<tr><td>Low</td><td>". $low . "</td></tr>" .
-            "<tr><td>Open</td><td>". $open . "</td></tr>";
+        $table = "<table border='1' align='center' class='stock_info_table'>" .
+            "<tr><td class='schema'>Name</td><td class='value'>". $name . "</td></tr>" .
+            "<tr><td class='schema'>Symbol</td><td class='value'>". $symbol . "</td></tr>" .
+            "<tr><td class='schema'>Last Price</td><td class='value'>". $last_price . "</td></tr>" .
+            "<tr><td class='schema'>Change</td><td class='value'>". $display_change . "</td></tr>" .
+            "<tr><td class='schema'>Change Percent</td><td class='value'>". $display_change_percent . "</td></tr>" .
+            "<tr><td class='schema'>Timestamp</td><td class='value'>". format_date_from_string($timestamp) . "</td></tr>" .
+            "<tr><td class='schema'>Market Cap</td><td class='value'>". round($market_cap / 10e9, 2) . " B</td></tr>" .
+            "<tr><td class='schema'>Volume</td><td class='value'>". number_format($volume) . "</td></tr>" .
+            "<tr><td class='schema'>Change YTD</td><td class='value'>". $display_change_ytd . "</td></tr>" .
+            "<tr><td class='schema'>Change Percent YTD</td><td class='value'>". $display_change_percent_ydt . "</td></tr>" .
+            "<tr><td class='schema'>High</td><td class='value'>". $high . "</td></tr>" .
+            "<tr><td class='schema'>Low</td><td class='value'>". $low . "</td></tr>" .
+            "<tr><td class='schema'>Open</td><td class='value'>". $open . "</td></tr>";
         echo $table;
     } else {
         $no_stock_info_html = "";
@@ -134,7 +182,7 @@ if (isset($_GET["btn_search"])) {
     $response = json_decode($response);
 
     if (count($response) > 0) {
-        $table = "<table border='1' align='center' style='border-collapse: collapse; border-color: gray; text-align: center;'>" .
+        $table = "<table border='1' align='center' class='stock_table'>" .
             "<tr>".
             "<th>Name</th>" .
             "<th>Symbol</th>" .
