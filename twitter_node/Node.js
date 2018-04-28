@@ -24,6 +24,29 @@ app.get("/listTweets", function (req, res) {
     });
 });
 
+// Get all external URLs in each tweet grouped by the tweet id
+app.get("/listAllExternalLinks", function (req, res) {
+    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+        // parse the json file to a JSON object
+        var jsonObj = JSON.parse(data);
+
+        // get selected field for the response
+        var wantedData = [];
+        for (var i = 0; i < jsonObj.length; i++) {
+            var tweet = jsonObj[i];
+            var re = new RegExp("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?", "g");
+
+            var links = JSON.stringify(tweet).match(re);
+            wantedData.push({"id": tweet["id"],
+                             "links": links});
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200);
+        res.end(JSON.stringify(wantedData));
+    });
+});
+
 var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
