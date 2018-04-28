@@ -94,6 +94,33 @@ app.get("/listTweets/:id", function (req, res) {
     });
 });
 
+// Get desired user by its screen_name is the "user" field
+app.get("/listUsers/:screenName", function (req, res) {
+    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+        // parse the json file to a JSON object
+        var jsonObj = JSON.parse(data);
+
+        // get selected field for the response
+        var wantedUser = null;
+        for (var i = 0; i < jsonObj.length; i++) {
+            var tweet = jsonObj[i];
+            // check if it has key "user" and the value is not null
+            if (tweet.hasOwnProperty("user")) {
+                var user = tweet["user"];
+                if (user != null && user.hasOwnProperty("screen_name")) {
+                    if (user["screen_name"] == req.params.screenName)
+                        wantedUser = user;
+                }
+            }
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        if (wantedUser == null) res.status(204);
+        else res.status(200);
+        res.end(JSON.stringify(wantedUser));
+    });
+});
+
 var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
