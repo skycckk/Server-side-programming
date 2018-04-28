@@ -24,6 +24,30 @@ app.get("/listTweets", function (req, res) {
     });
 });
 
+// Get all known users and return as a JSON object
+app.get("/listUsers", function (req, res) {
+    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+        // parse the json file to a JSON object
+        var jsonObj = JSON.parse(data);
+
+        // get selected field for the response
+        var wantedData = [];
+        for (var i = 0; i < jsonObj.length; i++) {
+            var tweet = jsonObj[i];
+            // check if it has key "user" and the value is not null
+            if (tweet.hasOwnProperty("user")) {
+                var user = tweet["user"];
+                if (user != null)
+                    wantedData.push(tweet["user"]);
+            }
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200);
+        res.end(JSON.stringify(wantedData));
+    });
+});
+
 // Get all external URLs in each tweet grouped by the tweet id
 app.get("/listAllExternalLinks", function (req, res) {
     fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
