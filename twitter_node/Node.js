@@ -71,6 +71,29 @@ app.get("/listAllExternalLinks", function (req, res) {
     });
 });
 
+// Get desired tweet by id
+app.get("/listTweets/:id", function (req, res) {
+    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+        // parse the json file to a JSON object
+        var jsonObj = JSON.parse(data);
+
+        // get selected field for the response
+        var wantedTweet = null;
+        for (var i = 0; i < jsonObj.length; i++) {
+            var tweet = jsonObj[i];
+            if (tweet["id"] == req.params.id) {
+                wantedTweet = tweet;
+                break;
+            }
+        }
+
+        res.setHeader('Content-Type', 'application/json');
+        if (wantedTweet == null) res.status(204);
+        else res.status(200);
+        res.end(JSON.stringify(wantedTweet));
+    });
+});
+
 var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
