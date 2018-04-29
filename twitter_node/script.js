@@ -91,16 +91,18 @@ function displayTweetInfo(jsonObj) {
 }
 
 function displayUsers(jsonObj) {
-    var html = "";
+    var table_schema = "<table border='1'><tr>" +
+        "<th>" + "user_screen_name" + "</th></tr>";
+    var html = table_schema;
     for (var i = 0; i < jsonObj.length; i++) {
-        var tweet = jsonObj[i];
-        var table_schema = "<table border='1' class='schema'>";
-        html += table_schema;
-        for (var key in tweet) {
-            html += "<tr><td>" + key + "</td><td>" + tweet[key] + "</td>";
+        var user = jsonObj[i];
+        if (user.hasOwnProperty("screen_name")) {
+            if (user.hasOwnProperty("screen_name")) {
+                html += "<tr><td>" + user["screen_name"] + "</td>";
+            }
         }
-        html += "</table>" + "<br>";
     }
+    html += "</table>";
     document.getElementById("display_all_users").innerHTML = html;
 }
 
