@@ -8,6 +8,7 @@ function getAllTweets() {
 }
 
 function getTweetById(tweetId) {
+    if (tweetId == "") return;
     var url = "http://localhost:3000/listTweets";
     url += "/" + tweetId
     $.get(url, function(data, status, xhr) {
@@ -29,6 +30,7 @@ function getAllUsers() {
 }
 
 function getUserByScreenName(screenName) {
+    if (screenName == "") return;
     var url = "http://localhost:3000/listUsers";
     url += "/" + screenName
     $.get(url, function(data, status, xhr) {
@@ -37,7 +39,6 @@ function getUserByScreenName(screenName) {
         } else if (xhr.status == 204) {
             alert("Content not found!");
         }
-
     });
 }
 
