@@ -1,5 +1,6 @@
+var apiPath = "http://weichung.net:3000/cs174/hw5";
 function getAllTweets() {
-    var url = "http://localhost:3000/listTweets";
+    var url = apiPath + "/listTweets";
     $.get(url, function (data, status, xhr) {
         if (xhr.status == 200) {
             displayTweets(data);
@@ -9,7 +10,7 @@ function getAllTweets() {
 
 function getTweetById(tweetId) {
     if (tweetId == "") return;
-    var url = "http://localhost:3000/listTweets";
+    var url = apiPath + "/listTweets";
     url += "/" + tweetId
     $.get(url, function(data, status, xhr) {
         if (xhr.status == 200) {
@@ -21,7 +22,7 @@ function getTweetById(tweetId) {
 }
 
 function getAllUsers() {
-    var url = "http://localhost:3000/listUsers";
+    var url = apiPath + "/listUsers";
     $.get(url, function (data, status, xhr) {
         if (xhr.status == 200) {
             displayUsers(data);
@@ -31,7 +32,7 @@ function getAllUsers() {
 
 function getUserByScreenName(screenName) {
     if (screenName == "") return;
-    var url = "http://localhost:3000/listUsers";
+    var url = apiPath + "/listUsers";
     url += "/" + screenName
     $.get(url, function(data, status, xhr) {
         if (xhr.status == 200) {
@@ -43,7 +44,7 @@ function getUserByScreenName(screenName) {
 }
 
 function getAllLinks() {
-    var url = "http://localhost:3000/listAllExternalLinks";
+    var url = apiPath + "/listAllExternalLinks";
     $.get(url, function(data, status, xhr) {
         if (xhr.status == 200) {
             displayAllLinks(data);
