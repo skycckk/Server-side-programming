@@ -1,5 +1,5 @@
-var apiPath = "http://weichung.net:3000/cs174/hw5";
-// var apiPath = "http://localhost:3000/cs174/hw5"; // enable only if you want to test on the local
+var apiPath = "http://weichung.net:3000/cs174/hw5/api/v0";
+// var apiPath = "http://localhost:3000/cs174/hw5/api/v0"; // enable only if you want to test on the local
 function getAllTweets() {
     var url = apiPath + "/listTweets";
     $.get(url, function (data, status, xhr) {

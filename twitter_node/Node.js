@@ -1,7 +1,7 @@
 var express = require("express");
 var fs = require("fs");
 var app = express();
-var basePath = "/cs174/hw5";
+var basePath = "/cs174/hw5/api/v0";
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
