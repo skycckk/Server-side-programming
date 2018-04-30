@@ -4,8 +4,7 @@ var app = express();
 
 // Get all tweets (create time, id, and tweet text) available in the archive.
 app.get("/listTweets", function (req, res) {
-    console.log("DEBUG[GET]: " + "NODE GET HERE");
-    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/" + "favs.json", "utf8", function (err, data) {
         // parse the json file to a JSON object
         var jsonObj = JSON.parse(data);
 
@@ -26,7 +25,7 @@ app.get("/listTweets", function (req, res) {
 
 // Get all known users and return as a JSON object
 app.get("/listUsers", function (req, res) {
-    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/" + "favs.json", "utf8", function (err, data) {
         // parse the json file to a JSON object
         var jsonObj = JSON.parse(data);
 
@@ -50,7 +49,7 @@ app.get("/listUsers", function (req, res) {
 
 // Get all external URLs in each tweet grouped by the tweet id
 app.get("/listAllExternalLinks", function (req, res) {
-    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/" + "favs.json", "utf8", function (err, data) {
         // parse the json file to a JSON object
         var jsonObj = JSON.parse(data);
 
@@ -73,7 +72,7 @@ app.get("/listAllExternalLinks", function (req, res) {
 
 // Get desired tweet by id
 app.get("/listTweets/:id", function (req, res) {
-    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/" + "favs.json", "utf8", function (err, data) {
         // parse the json file to a JSON object
         var jsonObj = JSON.parse(data);
 
@@ -96,7 +95,7 @@ app.get("/listTweets/:id", function (req, res) {
 
 // Get desired user by its screen_name is the "user" field
 app.get("/listUsers/:screenName", function (req, res) {
-    fs.readFile( __dirname + "/" + "favs.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/" + "favs.json", "utf8", function (err, data) {
         // parse the json file to a JSON object
         var jsonObj = JSON.parse(data);
 

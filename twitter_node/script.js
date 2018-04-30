@@ -53,12 +53,11 @@ function getAllLinks() {
 
 function displayTweets(jsonObj) {
     var table_schema =
-        "<table border='2' class='schema'> " +
-        "    <tr>" +
-        "    <th>" + "created_at" + "</th>" +
-        "    <th>" + "id" + "</th>" +
-        "    <th>" + "text" + "</th>" +
-        "    </tr>";
+        "<table border='1'><tr>" +
+        "<th>" + "created_at" + "</th>" +
+        "<th>" + "id" + "</th>" +
+        "<th>" + "text" + "</th>" +
+        "</tr>";
 
     var html = table_schema;
     for (var i = 0; i < jsonObj.length; i++) {
@@ -76,7 +75,7 @@ function displayTweets(jsonObj) {
 }
 
 function displayTweetInfo(jsonObj) {
-    var table_schema = "<table border='1' class='schema'>";
+    var table_schema = "<table border='1'>";
     var html = table_schema;
     for (var key in jsonObj) {
         var value = jsonObj[key];
