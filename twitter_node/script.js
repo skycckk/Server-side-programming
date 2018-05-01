@@ -93,15 +93,31 @@ function displayTweetInfo(jsonObj) {
 
 function displayUsers(jsonObj) {
     var table_schema = "<table border='1'><tr>" +
-        "<th>" + "user_screen_name" + "</th></tr>";
+        "<th>" + "Screen Name" + "</th>" +
+        "<th>" + "Name" + "</th>" +
+        "<th>" + "ID" + "</th></tr>";
     var html = table_schema;
     for (var i = 0; i < jsonObj.length; i++) {
         var user = jsonObj[i];
         if (user.hasOwnProperty("screen_name")) {
-            if (user.hasOwnProperty("screen_name")) {
-                html += "<tr><td>" + user["screen_name"] + "</td>";
-            }
+            html += "<tr><td>" + user["screen_name"];
+        } else {
+            html += "<tr><td>" + "";
         }
+
+        if (user.hasOwnProperty("name")) {
+            html += "<td>" + user["name"];
+        } else {
+            html += "<tr><td>" + "";
+        }
+
+        if (user.hasOwnProperty("id")) {
+            html += "<td>" + user["id"];
+        } else {
+            html += "<tr><td>" + "";
+        }
+
+        html += "</tr>";
     }
     html += "</table>";
     document.getElementById("display_all_users").innerHTML = html;
